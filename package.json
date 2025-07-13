@@ -1,9 +1,9 @@
 {
-  "name": "wooden-a-complete",
+  "name": "wooden-a",
   "version": "1.0.0",
   "scripts": {
-    "build": "cd client && npm run build && mkdir -p ../dist/public && cp -r dist/* ../dist/public/",
-    "start": "echo 'WoodenA Complete Project Ready'"
+    "build": "echo 'Static build ready'",
+    "start": "node api/index.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.5"

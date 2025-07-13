@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist/public",
-  "installCommand": "npm install",
   "builds": [
     {
-      "src": "client/src/**/*",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist/public"
@@ -29,13 +26,5 @@
       "src": "/.*",
       "dest": "/dist/public/index.html"
     }
-  ],
-  "functions": {
-    "api/index.js": {
-      "maxDuration": 10
-    }
-  },
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }

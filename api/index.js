@@ -4,11 +4,9 @@ const { db } = require('./db');
 
 const app = express();
 
-// CORS 설정
+// CORS 설정 - 모든 도메인 허용 (개발용)
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.vercel.app'] 
-    : ['http://localhost:3000', 'http://localhost:5173'],
+  origin: true,
   credentials: true
 }));
 
@@ -24,6 +22,18 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+// 환경변수 테스트
+app.get('/api/test', (req, res) => {
+  res.json({ 
+    status: 'OK',
+    environment: {
+      supabaseUrl: process.env.SUPABASE_URL ? 'set' : 'missing',
+      supabaseKey: process.env.SUPABASE_ANON_KEY ? 'set' : 'missing',
+      nodeEnv: process.env.NODE_ENV
+    }
+  });
+});
+
 // 사용자 관련 API
 app.get('/api/user', (req, res) => {
   res.json({ user: null, message: 'Not authenticated' });
@@ -31,6 +41,8 @@ app.get('/api/user', (req, res) => {
 
 app.post('/api/auth/login', async (req, res) => {
   try {
+    console.log('Login attempt:', req.body);
+    
     const { username, password } = req.body;
     
     if (!username || !password) {
@@ -40,7 +52,17 @@ app.post('/api/auth/login', async (req, res) => {
       });
     }
 
+    // 환경변수 확인
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
+      console.error('Missing environment variables');
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Database configuration error' 
+      });
+    }
+
     const user = await db.getUserByUsername(username);
+    console.log('Database query result:', user);
     
     if (!user) {
       return res.status(401).json({ 
@@ -49,7 +71,14 @@ app.post('/api/auth/login', async (req, res) => {
       });
     }
 
-    // 실제 프로덕션에서는 bcrypt로 패스워드 해시 비교
+    // 간단한 패스워드 검증 (데모용)
+    if (password !== 'admin123') {
+      return res.status(401).json({ 
+        success: false, 
+        message: 'Invalid credentials' 
+      });
+    }
+
     res.json({ 
       success: true, 
       user: { 
@@ -63,7 +92,7 @@ app.post('/api/auth/login', async (req, res) => {
     console.error('Login error:', error);
     res.status(500).json({ 
       success: false, 
-      message: 'Server error' 
+      message: 'Server error: ' + error.message 
     });
   }
 });

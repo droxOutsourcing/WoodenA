@@ -31,7 +31,15 @@ const db = {
   },
 
   async getUserByUsername(username) {
-    if (!supabase) return null;
+    if (!supabase) {
+      console.log('Supabase not initialized. Environment vars:', {
+        url: process.env.SUPABASE_URL ? 'set' : 'missing',
+        key: process.env.SUPABASE_ANON_KEY ? 'set' : 'missing'
+      });
+      return null;
+    }
+    
+    console.log('Searching for user:', username);
     const { data, error } = await supabase
       .from('users')
       .select('*')
@@ -42,6 +50,7 @@ const db = {
       console.error('Database error:', error);
       return null;
     }
+    console.log('User found:', data ? 'yes' : 'no');
     return data;
   },
 

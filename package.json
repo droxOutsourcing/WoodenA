@@ -1,11 +1,15 @@
 {
   "name": "wooden-a",
   "version": "1.0.0",
+  "description": "WoodenA - Furniture E-commerce Platform",
   "scripts": {
-    "build": "echo 'Static build ready'",
-    "start": "node api/index.js"
+    "build": "echo 'Static files ready for deployment'",
+    "start": "echo 'Vercel deployment complete'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.50.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

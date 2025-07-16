@@ -1,1 +1,0 @@
-import{j as e}from"./vendor.js";function r(){return e.jsx("div",{className:"min-h-screen flex items-center justify-center p-4",children:e.jsx("div",{className:"text-center",children:e.jsx("h1",{className:"text-2xl font-bold mb-4",children:"WoodenA - Furniture E-commerce"})})})}export{r as default};

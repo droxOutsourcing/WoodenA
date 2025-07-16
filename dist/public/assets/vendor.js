@@ -1,1 +1,0 @@
-import*as e from"react";import*as r from"react-dom/client";const t=e.createElement;function n(e){return e&&"object"==typeof e&&"default"in e?e.default:e}const o=n(t);const c={jsx:o,jsxs:o};r.createRoot(document.getElementById("root")).render(c.jsx(App,{}));export{c as j};

@@ -1,0 +1,36 @@
+{
+  "tasks": {
+    "dev": {
+      "command": "npm run dev",
+      "description": "개발 서버 시작 (Turbopack 사용)"
+    },
+    "build": {
+      "command": "npm run build",
+      "description": "프로덕션 빌드"
+    },
+    "start": {
+      "command": "npm run start",
+      "description": "프로덕션 서버 시작"
+    },
+    "lint": {
+      "command": "npm run lint",
+      "description": "ESLint로 코드 검사"
+    },
+    "clean": {
+      "command": "rm -rf .next && rm -rf node_modules/.cache",
+      "description": "Next.js 캐시 정리"
+    },
+    "full-check": {
+      "command": "npm run lint && npm run build",
+      "description": "린팅 후 빌드 테스트"
+    },
+    "reset": {
+      "command": "rm -rf .next node_modules/.cache && npm install",
+      "description": "완전 초기화 (캐시 삭제 + 재설치)"
+    },
+    "type-check": {
+      "command": "npx tsc --noEmit",
+      "description": "TypeScript 타입 검사"
+    }
+  }
+} 
